@@ -1,6 +1,11 @@
-# React AI Chatbot
+# React AI Chat Widget
 
 A plug-and-play React chatbot component supporting multiple AI providers (OpenAI, Anthropic, Mistral). Zero UI framework dependencies, fully typed with TypeScript, and highly customizable.
+
+[![npm version](https://img.shields.io/npm/v/react-ai-chat-widget.svg)](https://www.npmjs.com/package/react-ai-chat-widget)
+[![license](https://img.shields.io/npm/l/react-ai-chat-widget.svg)](https://github.com/abhijeetsatpute/react-ai-chat-widget/blob/main/LICENSE)
+
+![React AI Chat Widget Demo]()
 
 ## Features
 
@@ -170,7 +175,31 @@ Customize the appearance using CSS variables:
 />
 ```
 
-## Custom Toggle Icon
+## Customizing Size
+
+Control the chat window dimensions with `chatWidth` and `chatHeight`:
+
+```tsx
+<Chatbot
+  aiConfig={config}
+  chatWidth={380}      // pixels
+  chatHeight={500}     // pixels
+/>
+```
+
+You can also use string values for responsive sizing:
+
+```tsx
+<Chatbot
+  aiConfig={config}
+  chatWidth="90vw"     // viewport width
+  chatHeight="80vh"    // viewport height
+/>
+```
+
+## Custom Toggle Button
+
+### With Icon Library (react-icons)
 
 ```tsx
 import { Chatbot } from 'react-ai-chat-widget';
@@ -180,6 +209,49 @@ import { FaRobot } from 'react-icons/fa';
   aiConfig={config}
   toggleIcon={<FaRobot size={24} />}
   toggleLabel="Ask AI"
+/>
+```
+
+### With Custom SVG Icon
+
+```tsx
+<Chatbot
+  aiConfig={config}
+  toggleLabel="Ask Me"
+  toggleIcon={
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" />
+      <path d="M5 19l1 3 1-3 3-1-3-1-1-3-1 3-3 1 3 1z" />
+    </svg>
+  }
+/>
+```
+
+### With Emoji
+
+```tsx
+<Chatbot
+  aiConfig={config}
+  toggleIcon={<span style={{ fontSize: '24px' }}>🤖</span>}
+  toggleLabel="Chat"
+/>
+```
+
+### Label Only (No Custom Icon)
+
+```tsx
+<Chatbot
+  aiConfig={config}
+  toggleLabel="Need Help?"
 />
 ```
 
@@ -266,6 +338,97 @@ const response = await provider.sendMessage(
   config
 );
 ```
+
+## Real-World Example: Portfolio Assistant
+
+Here's a complete example of using the chat widget as a portfolio assistant that answers questions about your skills and experience:
+
+```tsx
+"use client"; // For Next.js App Router
+
+import { Chatbot } from "react-ai-chat-widget";
+import "react-ai-chat-widget/styles";
+
+// Import your portfolio data
+import { experience, skills, technologies, socialLinks } from "@/lib/data";
+
+// Build dynamic system prompt from your data
+const systemPrompt = `You are a helpful AI assistant on my portfolio website.
+
+## About Me
+Full Stack Developer with 5+ years of experience specializing in Node.js, React, and cloud technologies.
+
+## Work Experience
+${experience.map((exp) => `- ${exp.company}: ${exp.designation}`).join("\n")}
+
+## Technologies
+${technologies.map((t) => t.name).join(", ")}
+
+## Services
+${skills.map((s) => `- ${s.service}`).join("\n")}
+
+## Contact
+- Email: ${socialLinks.email}
+- LinkedIn: ${socialLinks.linkedin}
+
+Be friendly, professional, and encourage visitors to reach out for collaboration.`;
+
+export function PortfolioChat() {
+  return (
+    <Chatbot
+      aiConfig={{
+        provider: "mistral",
+        apiKey: process.env.NEXT_PUBLIC_MISTRAL_API_KEY || "",
+        model: "mistral-small-latest",
+        systemPrompt,
+      }}
+      position="bottom-right"
+      theme="dark"
+      chatWidth={380}
+      chatHeight={500}
+      welcomeMessage="Hi! I'm here to help you learn more about my work and skills. What would you like to know?"
+      placeholder="Ask me anything..."
+      themeConfig={{ primaryColor: "#8b5cf6" }}
+      toggleLabel="askMe"
+      toggleIcon={
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" />
+        </svg>
+      }
+    />
+  );
+}
+```
+
+Then add it to your layout:
+
+```tsx
+// app/layout.tsx
+import { PortfolioChat } from "@/components/portfolio-chat";
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <PortfolioChat />
+      </body>
+    </html>
+  );
+}
+```
+
+This approach keeps your chatbot's knowledge in sync with your portfolio data automatically!
+
+## Why This Package?
+
+| Feature | react-ai-chat-widget | Most Alternatives |
+|---------|---------------------|-------------------|
+| **AI Providers** | Built-in OpenAI, Anthropic, Mistral | Usually require custom integration |
+| **Dependencies** | Zero UI framework deps (pure CSS) | Often require MUI, styled-components |
+| **Setup** | Single component, pass API key & go | Often need backend setup |
+| **Styling** | CSS variables for easy theming | Many use CSS-in-JS |
+| **Bundle Size** | Lightweight (~25KB) | Often larger due to dependencies |
 
 ## Browser Support
 

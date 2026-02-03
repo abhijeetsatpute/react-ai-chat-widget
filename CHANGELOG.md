@@ -12,6 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added markdown header support (h1-h6) in AI responses
 - Headers like `### Title` now render properly as `<h3>` tags
 
+### Documentation
+
+- Added comprehensive examples for customizing width/height
+- Added multiple custom icon examples (SVG, emoji, icon libraries)
+- Added real-world portfolio assistant use case
+- Added "Why This Package?" comparison table
+
 ---
 
 ## [1.0.0] - 2026-02-03
