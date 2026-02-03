@@ -1,6 +1,6 @@
 {
   "name": "react-ai-chat-widget",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A plug-and-play React chatbot widget supporting OpenAI, Anthropic, and Mistral AI providers",
   "type": "module",
   "main": "dist/index.js",
