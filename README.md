@@ -5,7 +5,7 @@ A plug-and-play React chatbot component supporting multiple AI providers (OpenAI
 [![npm version](https://img.shields.io/npm/v/react-ai-chat-widget.svg)](https://www.npmjs.com/package/react-ai-chat-widget)
 [![license](https://img.shields.io/npm/l/react-ai-chat-widget.svg)](https://github.com/abhijeetsatpute/react-ai-chat-widget/blob/main/LICENSE)
 
-![React AI Chat Widget Demo]()
+![React AI Chat Widget Demo](https://github.com/user-attachments/assets/42d0a4e0-cfb5-4cbb-b943-8dd4dbf08062)
 
 ## Features
 
