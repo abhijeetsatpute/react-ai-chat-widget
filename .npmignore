@@ -1,0 +1,20 @@
+# Source files
+src/
+__tests__/
+
+# Config files
+.gitignore
+tsconfig.json
+rollup.config.js
+vitest.config.ts
+
+# IDE
+.vscode/
+.idea/
+
+# Test coverage
+coverage/
+
+# Misc
+*.log
+.env*
